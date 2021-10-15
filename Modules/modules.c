@@ -831,7 +831,10 @@ bool do_OS_SerialOp( svc_registers *regs )
 {
   return run_vector( 36, regs );
 }
-
+bool do_OS_SetVarVal( svc_registers *regs )
+{
+  return run_vector( 0x24, regs );
+}
 void __attribute__(( naked )) fast_horizontal_line_draw( uint32_t left, uint32_t y, uint32_t right, uint32_t action )
 {
   asm ( "push { r0-r12, lr }" );

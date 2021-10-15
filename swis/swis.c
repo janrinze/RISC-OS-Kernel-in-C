@@ -53,6 +53,9 @@ static bool do_OS_WriteS( svc_registers *regs )
   return result;
 }
 
+void SetInitialVduVars() {
+}
+
 static bool do_OS_Write0( svc_registers *regs )
 {
   const char *s = (void*) regs->r[0];
