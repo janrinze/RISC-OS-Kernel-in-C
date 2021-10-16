@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-set(CMAKE_C_COMPILER arm-linux-gnueabi-gcc)
+set(CMAKE_C_COMPILER arm-linux-gnueabihf-gcc)
 set(CMAKE_CXX_COMPILER arm-linux-gnueabi-g++)
 set(CMAKE_C_LINK_FLAGS "-nostartfiles -nostdlib -fno-zero-initialized-in-bss -static -g -march=armv8-a -Os -o rom.elf -static -T ${CMAKE_SOURCE_DIR}/rom.script -Os" )
 project(RISC-OS-Kernel-in-C LANGUAGES C)
@@ -13,6 +13,12 @@ add_custom_command(
   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/generate_ro_rom.sh
   WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 )
+#add_custom_command(
+#  OUTPUT rom.bin
+#  COMMAND arm-linux-gnueabihf-objcopy -R .ignoring -O binary RISC-OS-Kernel-in-C rom.bin
+#  DEPENDS RISC-OS-Kernel-in-C
+#  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+#)
 
 add_executable(RISC-OS-Kernel-in-C
     ./MMU/ARMv6/mmu.c
@@ -30,8 +36,17 @@ add_executable(RISC-OS-Kernel-in-C
     ./boot/generic/boot.c
     ro_rom.o
 )
+add_custom_target(rom.bin 
+		COMMAND arm-linux-gnueabihf-objcopy -R .ignoring -O binary RISC-OS-Kernel-in-C rom.bin
+		DEPENDS RISC-OS-Kernel-in-C
+		)
 
 #-T ../rom.script -nostartfiles -nostdlib -fno-zero-initialized-in-bss -static -g -march=armv8-a -Os
 add_link_options( -fno-pic -nostartfiles -nostdlib -fno-zero-initialized-in-bss -static -g -march=armv8-a -Os -o rom.elf -static -T ${CMAKE_SOURCE_DIR}/rom.script -Os )
 #set_property(TARGET "RISC-OS-Kernel-in-C" APPEND_STRING PROPERTIES LINK_FLAGS "-static -T ${CMAKE_SOURCE_DIR}/rom.script -Os")
 target_include_directories(RISC-OS-Kernel-in-C PRIVATE ./Legacy ./debug ./kernel ./boot/generic ./memory/simple ./MMU/ARMv6 ./processor/ARMv6 ./swis ./TaskSlot/simple )
+
+install(FILES
+  ${CMAKE_CURRENT_BINARY_DIR}/rom.bin
+  DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/rom.bin
+  )

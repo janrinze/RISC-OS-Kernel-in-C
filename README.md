@@ -43,8 +43,24 @@ Modules
 Many existing modules can probably simply be initialised on separate cores, and provide their service without any knowledge of multi-processing.
 
 Wimp
-----
+---
 
 The module only executes for a fraction of the time, the rest is the applications; hopefully it will be possible to lock other cores for only short periods of time, while windows are re-arranged, or similar.
 
+Building
+--------
+
+```bash
+mkdir BUILD
+cd BUILD
+cmake ../
+make rom.bin
+```
+
+Running
+-------
+
+```bash
+qemu-system-arm -bios rom.bin -machine raspi2
+```
 
