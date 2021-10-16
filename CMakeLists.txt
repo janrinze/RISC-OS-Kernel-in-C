@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-set(CMAKE_C_COMPILER arm-linux-gnueabihf-gcc)
+set(CMAKE_C_COMPILER arm-linux-gnueabi-gcc-8)
 set(CMAKE_CXX_COMPILER arm-linux-gnueabi-g++)
 set(CMAKE_C_LINK_FLAGS "-nostartfiles -nostdlib -fno-zero-initialized-in-bss -static -g -march=armv8-a -Os -o rom.elf -static -T ${CMAKE_SOURCE_DIR}/rom.script -Os" )
 project(RISC-OS-Kernel-in-C LANGUAGES C)
@@ -15,7 +15,7 @@ add_custom_command(
 )
 #add_custom_command(
 #  OUTPUT rom.bin
-#  COMMAND arm-linux-gnueabihf-objcopy -R .ignoring -O binary RISC-OS-Kernel-in-C rom.bin
+#  COMMAND arm-linux-gnueabi-objcopy -R .ignoring -O binary RISC-OS-Kernel-in-C rom.bin
 #  DEPENDS RISC-OS-Kernel-in-C
 #  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 #)
@@ -37,7 +37,7 @@ add_executable(RISC-OS-Kernel-in-C
     ro_rom.o
 )
 add_custom_target(rom.bin 
-		COMMAND arm-linux-gnueabihf-objcopy -R .ignoring -O binary RISC-OS-Kernel-in-C rom.bin
+		COMMAND arm-linux-gnueabi-objcopy -R .ignoring -O binary RISC-OS-Kernel-in-C rom.bin
 		DEPENDS RISC-OS-Kernel-in-C
 		)
 
