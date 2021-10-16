@@ -11,7 +11,7 @@ else
     wget https://www.riscosopen.org/zipfiles/platform/raspberry-pi/BCM2835.5.28.zip
     unzip BCM2835.5.28.zip
     dd if=RISCOS.IMG of=ro_rom.img bs=65536 skip=1
-    arm-linux-gnueabi-objcopy -I binary -O elf32-littlearm -B armv7 --prefix-sections=.modules ro_rom.img ../ro_rom.o
+    arm-linux-gnueabi-objcopy -I binary -O elf32-littlearm -B arm --prefix-sections=.modules ro_rom.img ../ro_rom.o
     cd ..
     rm -Rf rominstall
 fi

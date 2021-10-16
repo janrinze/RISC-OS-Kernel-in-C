@@ -54,13 +54,13 @@ Building
 mkdir BUILD
 cd BUILD
 cmake ../
-make rom.bin
+make
 ```
 
 Running
 -------
 
 ```bash
-qemu-system-arm -bios rom.bin -machine raspi2
+qemu-system-arm -bios BUILD/rom.bin -machine raspi2
 ```
 
