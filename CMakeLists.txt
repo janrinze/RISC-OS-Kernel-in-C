@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
 # choose the cross compiler
-set(CMAKE_C_COMPILER arm-linux-gnueabi-gcc-8)
+set(CMAKE_C_COMPILER arm-linux-gnueabi-gcc-11)
 
 # define project name
 project(RISC-OS-Kernel-in-C)
@@ -29,7 +29,6 @@ add_executable(RISC-OS-Kernel-in-C
     ./swis/plot.c
     ./swis/vdu.c
     ./memory/simple/memory_manager.c
-    ./BUILD/CMakeFiles/3.21.3/CompilerIdC/CMakeCCompilerId.c
     ./processor/ARMv6/processor.c
     ./kernel/kernel.c
     ./boot/generic/boot.c
